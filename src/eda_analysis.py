@@ -2,55 +2,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# -----------------------------
-# LOAD CLEAN DATA
-# -----------------------------
 df = pd.read_csv("data/cleaned_expenses.csv")
 
 print("🔹 Data Preview:")
 print(df.head())
 
-# -----------------------------
-# BASIC STATISTICS
-# -----------------------------
 print("\n🔹 Summary Statistics:")
 print(df["Amount"].describe())
 
-# -----------------------------
-# CATEGORY-WISE SPENDING
-# -----------------------------
 category_spending = df.groupby("Category")["Amount"].sum().sort_values(ascending=False)
 
 print("\n🔹 Category-wise Spending:")
 print(category_spending)
 
-# -----------------------------
-# MONTHLY SPENDING
-# -----------------------------
 monthly_spending = df.groupby("Month")["Amount"].sum()
 
 print("\n🔹 Monthly Spending:")
 print(monthly_spending)
 
-# -----------------------------
-# PAYMENT METHOD ANALYSIS
-# -----------------------------
 payment_analysis = df["Payment_Method"].value_counts()
 
 print("\n🔹 Payment Method Usage:")
 print(payment_analysis)
 
-# -----------------------------
-# TOP 5 EXPENSE DAYS
-# -----------------------------
 top_days = df.sort_values(by="Amount", ascending=False).head(5)
 
 print("\n🔹 Top 5 Expenses:")
 print(top_days)
 
-# -----------------------------
-# VISUALIZATIONS
-# -----------------------------
 
 # Style
 sns.set(style="whitegrid")
