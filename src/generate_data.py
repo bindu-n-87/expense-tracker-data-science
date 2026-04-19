@@ -5,9 +5,6 @@ import random
 
 np.random.seed(42)
 
-# -----------------------------
-# CONFIG
-# -----------------------------
 num_days = 180
 start_date = datetime(2024, 1, 1)
 
@@ -26,9 +23,6 @@ payment_methods = ["Cash", "UPI", "Card"]
 
 data = []
 
-# -----------------------------
-# GENERATE DATA
-# -----------------------------
 for i in range(num_days):
     current_date = start_date + timedelta(days=i)
 
@@ -56,17 +50,11 @@ for i in range(num_days):
             "Payment_Method": random.choice(payment_methods)
         })
 
-# -----------------------------
-# CREATE DATAFRAME
-# -----------------------------
 df = pd.DataFrame(data)
 
 # Shuffle data
 df = df.sample(frac=1).reset_index(drop=True)
 
-# -----------------------------
-# SAVE DATA
-# -----------------------------
 df.to_csv("data/expenses.csv", index=False)
 
 print("Dataset generated successfully!")
