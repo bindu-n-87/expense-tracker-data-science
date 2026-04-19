@@ -2,25 +2,16 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# -----------------------------
-# PAGE CONFIG
-# -----------------------------
 st.set_page_config(page_title="Expense Tracker Dashboard", layout="wide")
 
 st.title("Expense Tracker Dashboard")
 
-# -----------------------------
-# LOAD DATA
-# -----------------------------
 @st.cache_data
 def load_data():
     return pd.read_csv("data/featured_expenses.csv")
 
 df = load_data()
 
-# -----------------------------
-# SIDEBAR FILTERS
-# -----------------------------
 st.sidebar.header("Filters")
 
 category_filter = st.sidebar.multiselect(
@@ -47,9 +38,6 @@ filtered_df = df[
     (df["Month_Name"].isin(month_filter))
 ]
 
-# -----------------------------
-# KPI SECTION
-# -----------------------------
 total_spent = filtered_df["Amount"].sum()
 avg_spent = filtered_df["Amount"].mean()
 max_spent = filtered_df["Amount"].max()
@@ -65,9 +53,6 @@ col3.metric("Max Expense", f"{max_spent:,.0f}")
 
 st.divider()
 
-# -----------------------------
-# BUDGET STATUS
-# -----------------------------
 st.subheader("Budget Status")
 
 st.write(f"Budget Used: {budget_used:.2f}%")
@@ -86,16 +71,10 @@ else:
 
 st.divider()
 
-# -----------------------------
-# CHART SETTINGS
-# -----------------------------
 FIGSIZE = (4.5, 3.2)
 
 st.subheader("Analytics Dashboard")
 
-# -----------------------------
-# ROW 1
-# -----------------------------
 col1, col2 = st.columns(2)
 
 with col1:
@@ -124,9 +103,6 @@ with col2:
 
     st.pyplot(fig2, use_container_width=True)
 
-# -----------------------------
-# ROW 2
-# -----------------------------
 col3, col4 = st.columns(2)
 
 with col3:
@@ -158,15 +134,9 @@ with col4:
 
 st.divider()
 
-# -----------------------------
-# DATA TABLE
-# -----------------------------
 st.subheader("Filtered Data")
 st.dataframe(filtered_df)
 
-# -----------------------------
-# DOWNLOAD REPORT
-# -----------------------------
 csv = filtered_df.to_csv(index=False).encode("utf-8")
 
 st.download_button(
